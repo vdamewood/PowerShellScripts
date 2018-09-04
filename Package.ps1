@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# BuildReleases.ps1: Automate building and uploading project releases
+# Package.ps1: Build and upload packages for CMake-based projects
 # Copyright 2018 Vincent Damewood
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +39,7 @@ foreach($i in $BuildData.Builds)
 		New-Item -ItemType directory $BldDir
 		Set-Location $BldDir
 
-		cmake -GNinja -DCMAKE_BUILD_TYPE=Release $B.SrcDir
+		cmake -GNinja -DCMAKE_BUILD_TYPE=$B.BuildType $B.SrcDir
 		ninja package
 
 		foreach ($pkg in Get-ChildItem `
